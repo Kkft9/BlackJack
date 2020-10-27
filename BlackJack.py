@@ -86,18 +86,22 @@ def showCard(player, dealer, playerName) :
     
     # printing player's cards
     print(f"\n{playerName} Hand:")
-    print(f"{player.cards[0]}\n{player.cards[1]}")
+    for card in player.cards:
+        print(card)
+    print(f"{playerName}'s Hand = {player.sum}")
 
 
 def showHand(player, dealer, playerName):
     # printing dealer's cards
     print("\nDealer's Hand:")
-    print(f"{dealer.cards[0]}\n{dealer.cards[1]}")
+    for card in dealer.cards:
+        print(card)
     print(f"Dealer's Hand = {dealer.sum}")
     
     # printing player's cards
     print(f"\n{playerName}'s Hand:")
-    print(f"{player.cards[0]}\n{player.cards[1]}")
+    for card in player.cards:
+        print(card)
     print(f"{playerName}'s Hand = {player.sum}")
 
     
@@ -107,26 +111,27 @@ def main() :
     player = input("\nEnter your name:\n")
     x = int(input("\nEnter the amount of chips you have:\n"))
 
-    print(f"\nHello {player}! All the best!")
-
-    # creating a deck of cards
-    deck = Deck()
-    deck.shuffleDeck()
-
-    # deal cards to player
-    playerHand = Hand()
-    playerHand.addCard(deck.dealCard())
-    playerHand.addCard(deck.dealCard())
-
-    # deal cards to dealer
-    dealerHand = Hand()
-    dealerHand.addCard(deck.dealCard())
-    dealerHand.addCard(deck.dealCard())
-
     # setting the player chips
     chips = playerChips(x)
 
+    print(f"\nHello {player}! All the best!")
+
     while True :
+
+        # creating a deck of cards
+        deck = Deck()
+        deck.shuffleDeck()
+
+        # deal cards to player
+        playerHand = Hand()
+        playerHand.addCard(deck.dealCard())
+        playerHand.addCard(deck.dealCard())
+
+        # deal cards to dealer
+        dealerHand = Hand()
+        dealerHand.addCard(deck.dealCard())
+        dealerHand.addCard(deck.dealCard())
+    
         # player bets
         while chips.bet == 0 or chips.bet > chips.chips :
             chips.bet = int(input("\nEnter the amount of chips you would like to bet:\n"))
@@ -148,7 +153,7 @@ def main() :
         if playerHand.sum <= 21 :
             while dealerHand.sum < 17 :
                 hitCard(dealerHand, deck)
-                # showHand(playerHand, dealerHand, player)
+                showHand(playerHand, dealerHand, player)
 
             showHand(playerHand, dealerHand, player)
 
