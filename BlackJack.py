@@ -142,7 +142,7 @@ def main() :
 
             if playerHand.sum > 21:
                 print(f"\n{player} busts! Dealer wins!!!")
-                chips.chips -= chips.bet
+                chips.lostChips()
                 break
 
         if playerHand.sum <= 21 :
@@ -154,15 +154,15 @@ def main() :
 
             if dealerHand.sum > 17 :
                 print(f"\nDealer busts! {player} wins!!!")
-                chips.chips += chips.bet
+                chips.wonChips()
         
             elif dealerHand.sum > playerHand.sum :
                 print("\nDealer wins!!!")
-                chips.chips -= chips.bet
+                chips.lostChips()
 
             elif dealerHand.sum < playerHand.sum :
                 print(f"\n{player} wins!!!")
-                chips.chips += chips.bet
+                chips.wonChips()
 
             else :
                 print("\nIt's a Tie!!!")
