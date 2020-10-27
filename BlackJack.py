@@ -59,12 +59,6 @@ class playerChips() :
         self.chips -= self.bet
 
 
-def makeBet(playerChips) :
-    print("hello")
-    while(playerChips.bet>0 and playerChips.bet > playerChips.chips) :
-        playerChips.bet = int(input("\nEnter the chips you would like to bet:\n"))
-
-
 def hitCard(hand, deck) :
     hand.addCard(deck.dealCard())
     hand.aceAdjustment()
@@ -115,7 +109,7 @@ def main() :
 
     print(f"\nHello {player}! All the best!")
 
-    # creating a deeck of cards
+    # creating a deck of cards
     deck = Deck()
     deck.shuffleDeck()
 
