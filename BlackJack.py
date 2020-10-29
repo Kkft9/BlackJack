@@ -66,16 +66,23 @@ def hitCard(hand, deck) :
 
 def hitOrStand(hand, deck, player) :
     res = ''
-    while res not in ['h', 's'] :
-        res = input("\nWould you like to hit or stand? (h/s)\n")
-
-        if res == 'h' :
-            print(f"\n{player} says hit!")
-            hitCard(hand, deck)
-            return True
+    while True:
+        try :
+            res = input("\nWould you like to hit or stand? (h/s)\n")
+        except :
+            print("\nEnter a valid answer.")
         else :
-            print(f"\n{player} stands!")
-            return False
+            if res == 'h' :
+                print(f"\n{player} says hit!")
+                hitCard(hand, deck)
+                return True
+
+            elif res == 's':
+                print(f"\n{player} stands!")
+                return False
+
+            else :
+                print("\nEnter a valid answer.")
 
 
 def showCard(player, dealer, playerName) :
@@ -109,14 +116,26 @@ def main() :
     print("\nWelcome to BlackJack!")
 
     player = input("\nEnter your name:\n")
-    x = int(input("\nEnter the amount of chips you have:\n"))
+    x = 0
+    while True:
+        try :
+            x = int(input("\nEnter the amount of chips you have:\n"))
+        except :
+            print("\nEnter a valid integer value.")
+        else :
+            if x>0:
+                break
+            else:
+                print("\nEnter a value greater than 0.")
 
     # setting the player chips
     chips = playerChips(x)
 
     print(f"\nHello {player}! All the best!")
 
-    while True :
+    wantToPlay = True
+
+    while wantToPlay :
 
         # creating a deck of cards
         deck = Deck()
@@ -133,8 +152,19 @@ def main() :
         dealerHand.addCard(deck.dealCard())
     
         # player bets
-        while chips.bet == 0 or chips.bet > chips.chips :
-            chips.bet = int(input("\nEnter the amount of chips you would like to bet:\n"))
+        while True:
+            try :
+                chips.bet = int(input("\nEnter the chips you want to bet?\n"))
+            except:
+                print("\nEnter a valid integer value.")
+            else :
+                if chips.bet > 0:
+                    if chips.bet > chips.chips :
+                        print("\nYou don't have enough chips! Try another value.")
+                    else:
+                        break
+                else :
+                    print("\nEnter a value greater than 0")
 
         # showing cards
         showCard(playerHand, dealerHand, player)
@@ -180,9 +210,22 @@ def main() :
             print(f"{player} out of chips!")
             break
 
-        res = input("Do you want to continue? (y/n)\n")
-        if res == 'n' :
-            break
+        res = ''
+        while True:
+            try :
+                res = input("Do you want to continue? (y/n)\n")
+            except :
+                print("\nEnter a valid answer.")
+            else :
+                if res == 'n' :
+                    wantToPlay = False
+                    break
+                    
+                elif res == 'y' :
+                    break
+
+                else :
+                    print("\nEnter a valid answer.") 
 
 
 if __name__ == '__main__':
